@@ -3,7 +3,7 @@ from pymongo import MongoClient
 from credentials import database as db
 import config
 
-LOCAL = True
+LOCAL = False
 
 app = Flask(__name__)
 
