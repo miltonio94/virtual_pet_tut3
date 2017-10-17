@@ -7,7 +7,7 @@ LOCAL = False
 
 app = Flask(__name__)
 
-# uri = "mongodb://%s:%s@%s/%s" % (db.user, db.password, config.host, config.db_name)
+uri = "mongodb://%s:%s@%s/%s" % (db.user, db.password, config.host, config.db_name)
 
 print(uri)
 
