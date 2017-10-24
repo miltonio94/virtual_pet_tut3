@@ -7,8 +7,8 @@
     <body>
         <h1>Hello flask</h1>
         <ul>
-            {% for x in range(0, 101) %}
-                {% for y in range(0, 101) %}
+            {% for x in range(0, 10) %}
+                {% for y in range(0, 8) %}
                         {% if x == y %}
                             <li style="color: red">
                                 {{ x }} * {{ y }}  =  {{ x * y }}
