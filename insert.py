@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 from credentials import database as db
-from datatime import datetime
+from datetime import datetime
 import config
 
 uri  = "mongodb://%s:%s@%s/%s" % (db.user, db.password, config.host, config.db_name)
