@@ -20,5 +20,5 @@ for x in db.my_posts.find():
 def page():
     return render_template('index.html')
 
-if (not config.ON_HEROKU) and __name__ == "__main__":
-    app.run(debug=True)
+# if (not config.ON_HEROKU) and __name__ == "__main__":
+#     app.run(debug=True)
