@@ -3,8 +3,6 @@ from pymongo import MongoClient
 from credentials import database as db
 import config
 
-LOCAL = False
-
 app = Flask(__name__)
 
 uri = "mongodb://%s:%s@%s/%s" % (db.user, db.password, config.host, config.db_name)
@@ -19,5 +17,5 @@ db = client[config.db_name]
 def page():
     return render_template('index.html')
 
-if LOCAL and __name__ == "__main__":
+if (not config.ON_HEROKU) and __name__ == "__main__":
     app.run(debug=True)
