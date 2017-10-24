@@ -7,20 +7,10 @@
     <body>
         <h1>Hello flask</h1>
         <ul>
-            {% for x in range(0, 10) %}
-                {% for y in range(0, 8) %}
-                        {% if x == y %}
-                            <li style="color: red">
-                                {{ x }} * {{ y }}  =  {{ x * y }}
-                            </li>
-                        {% else %}
-                            <li style="color: blue">
-                                {{ x }} * {{ y }}  =  {{ x * y }}
-                            </li>
-                        {% endif %}
-
-
-                {% endfor %}
+            {% for x in data %}
+                <p>
+                    data
+                </p>
             {% endfor %}
         </ul>
     </body>
