@@ -12,13 +12,13 @@ print(uri)
 client = MongoClient(uri)
 db = client[config.db_name]
 
-for x in db.my_posts.find():
+for x in db.my_post.find():
     print(x)
 
 @app.route("/")
 
 def page():
-    return render_template('index.html', data=db.my_posts.find())
+    return render_template('index.html', data=db.my_post.find())
 
 if (not config.ON_HEROKU) and __name__ == "__main__":
     app.run(debug=True)
