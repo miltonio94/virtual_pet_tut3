@@ -6,11 +6,12 @@
     </head>
     <body>
         <h1>Hello flask</h1>
+        {{ data }}
         <ul>
-            {% for x in data %}
-                <p>
-                    {{ x }}
-                </p>
+            {% for x in range(0, 10) %}
+                            <li>
+                                {{ x }}
+                            </li>
             {% endfor %}
         </ul>
     </body>
