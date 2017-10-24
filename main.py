@@ -12,6 +12,9 @@ print(uri)
 client = MongoClient(uri)
 db = client[config.db_name]
 
+for x in db.my_posts.find():
+    print x
+
 @app.route("/")
 
 def page():
