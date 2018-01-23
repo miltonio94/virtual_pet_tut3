@@ -61,4 +61,4 @@ def page():
     return render_template('index.html', data=db.my_posts.find())
 
 if (not ON_HEROKU) and __name__ == "__main__":
-app.run(debug=True)
+    app.run(debug=True)
