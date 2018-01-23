@@ -1,24 +1,64 @@
-from flask import Flask, render_template
+# from flask import Flask, render_template, send_from_directory
+# from pymongo import MongoClient
+# from credentials import database as db
+# import config
+#
+# app = Flask(__name__)
+#
+# uri = "mongodb://%s:%s@%s/%s" % (db.user, db.password, config.host, config.db_name)
+#
+#
+# client = MongoClient(uri)
+# db = client[config.db_name]
+#
+#
+# @app.route("/js/<path:path>")
+# def send_js(path):
+#     return send_from_directory('js', path)
+#
+# @app.route("/")
+# def page():
+#     return render_template('index.html', data=db.my_post.find())
+#
+#
+# if (not config.ON_HEROKU) and __name__ == "__main__":
+#     app.run(debug=True)
+from flask import Flask, request, render_template, jsonify, send_from_directory
 from pymongo import MongoClient
-from credentials import database as db
-import config
+import datetime
+import os
 
-app = Flask(__name__)
+from credentials import db_access
 
-uri = "mongodb://%s:%s@%s/%s" % (db.user, db.password, config.host, config.db_name)
+host='ds033390.mlab.com:33390'
+db_name = 'test1'
+
+uri = "mongodb://%s:%s@%s/%s" % (db_access.user, db_access.password, host, db_name)
 
 print(uri)
 
 client = MongoClient(uri)
-db = client[config.db_name]
+db = client[db_name]
 
-for x in db.my_post.find():
-    print(x)
+ON_HEROKU = "ON_HEROKU" in os.environ
+
+app = Flask(__name__)
+
+@app.route('/js/<path:path>')
+def send_js(path):
+    return send_from_directory('js', path)
+
+@app.route('/exchange', methods=['POST'])
+def exchange():
+    json = request.get_json()
+    if json['data'] == 37:
+        return jsonify({ 'x' : 56, 'y' : [-200, 55], 'thirty_seven': 'YES'  })
+    else:
+        return jsonify({ 'x' : 56, 'y' : [-200, 55], 'z' : json['data']  })
 
 @app.route("/")
-
 def page():
-    return render_template('index.html', data=db.my_post.find())
+    return render_template('index.html', data=db.my_posts.find())
 
-if (not config.ON_HEROKU) and __name__ == "__main__":
-    app.run(debug=True)
+if (not ON_HEROKU) and __name__ == "__main__":
+app.run(debug=True)
