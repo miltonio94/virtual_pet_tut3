@@ -30,8 +30,8 @@ import os
 
 from credentials import db_access
 
-host='ds033390.mlab.com:33390'
-db_name = 'test1'
+host = "ds113935.mlab.com:13935"
+db_name = 'tut2'
 
 uri = "mongodb://%s:%s@%s/%s" % (db_access.user, db_access.password, host, db_name)
 
