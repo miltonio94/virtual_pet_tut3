@@ -120,7 +120,7 @@ def latest():
         "played": lat["played"],
         "fullness": lat["fullness"],
         "cuddled": lat["cuddled"],
-        "date" : lat[date]
+        "date" : lat['date']
     }
     return jsonify(retVal)
 
