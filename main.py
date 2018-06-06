@@ -67,5 +67,16 @@ def page():
 def play():
     return render_template('play.html', data=db.my_posts.find())
 
+@app.route("/monkey")
+def monkey():
+    post = {"name": "Flippy",
+            "played": 100,
+            "fullness": 100,
+            "cuddled": 100,
+            "date": datetime.datetime.utcnow()}
+
+    collection = db.petStat
+    collection.insert_one(post)
+
 if (not ON_HEROKU) and __name__ == "__main__":
     app.run(debug=True)

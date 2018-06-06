@@ -31,13 +31,13 @@ client = MongoClient(uri)
 db = client[db_name]
 
 post = {"name": "Flippy",
-        "played": "My first blog post!",
-        "fullness": ["mongodb", "python", "pymongo"],
-        "cuddled": "",
+        "played": 100,
+        "fullness": 100,
+        "cuddled": 100,
         "date": datetime.datetime.utcnow()}
 
-collection = db.my_posts
+collection = db.petStat
 collection.insert_one(post)
 
 for x in db.my_posts.find():
-print(x)
+    print(x)
