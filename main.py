@@ -50,16 +50,23 @@ def send_js(path):
 
 @app.route('/played', methods=['POST'])
 def played():
-    latest = db.petStat.find().sort({"date": ASCENDING})
+    latest = db.petStat.find().sort("date", ASCENDING)
     latest = latest[0]
-    if(latest.played < 100):
-        latest.played = latest.played + 10
-    if(latest.played > 100):
-        latest.played = 100
+    print(latest)
+    newEntry = {
+        "name" : latest["name"],
+        "played": latest["played"] + 10,
+        "fullness": latest["fullness"],
+        "cuddled": latest["cuddled"],
+        "date" : datetime.datetime.utcnow()
+    }
+    if(newEntry["played"] > 100):
+        newEntry["played"] = 100
 
-    latest.date = datetime.datetime.utcnow()
     collection = db.petStat
-    collection.insert_one(latest)
+    collection.insert_one(newEntry)
+
+    return jsonify({"ok": 1})
 
 
 @app.route('/pated', methods=['POST'])
