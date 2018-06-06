@@ -49,7 +49,7 @@ def send_js(path):
     return send_from_directory('js', path)
 
 @app.route('/played', methods=['POST'])
-def exchange():
+def played():
     json = request.get_json()
     print("lol")
     print(json)
