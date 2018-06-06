@@ -50,9 +50,6 @@ def send_js(path):
 
 @app.route('/played', methods=['POST'])
 def played():
-    json = request.get_json(force=True)
-    print("lol")
-    print(json)
     latest = db.petStat.find().sort({date:-1})[0]
     if(latest.played < 100):
         latest.played = latest.played + 10
