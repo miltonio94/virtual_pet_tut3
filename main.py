@@ -114,7 +114,15 @@ def fed():
 
 @app.route('/latest', methods=['POST'])
 def latest():
-    return jsonify(getLatest())
+    lat = getLatest()
+    retVal = {
+        "name" : lat["name"],
+        "played": lat["played"],
+        "fullness": lat["fullness"],
+        "cuddled": lat["cuddled"],
+        "date" : lat[date]
+    }
+    return jsonify(retVal)
 
 @app.route("/")
 def page():
