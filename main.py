@@ -112,6 +112,10 @@ def fed():
 
     return jsonify({"ok": 1})
 
+@app.route('/latest', methods=['POST'])
+def latest():
+    return jsonify(getLatest())
+
 @app.route("/")
 def page():
     return render_template('index.html', data=db.my_posts.find())
