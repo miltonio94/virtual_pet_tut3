@@ -59,7 +59,7 @@ def played():
     if(latest.played > 100):
         latest.played = 100
 
-    latest.date = "date": datetime.datetime.utcnow()
+    latest.date = datetime.datetime.utcnow()
     collection = db.petStat
     collection.insert_one(latest)
 
