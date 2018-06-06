@@ -62,6 +62,14 @@ def played():
     collection.insert_one(latest)
 
 
+@app.route('/pated', methods=['POST'])
+def pated():
+    pass
+
+
+@app.route('/fed', methods=['POST'])
+def fed():
+    pass
 
     # if json['data'] == 37:
     #     return jsonify({ 'x' : 56, 'y' : [-200, 55], 'thirty_seven': 'YES'  })
