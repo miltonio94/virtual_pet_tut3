@@ -53,6 +53,17 @@ def played():
     json = request.get_json(force=True)
     print("lol")
     print(json)
+    latest = db.petStat.find().sort({date:-1})[0]
+    if(latest.played < 100):
+        latest.played = latest.played + 10
+    if(latest.played > 100):
+        latest.played = 100
+
+    latest.date = "date": datetime.datetime.utcnow()
+    collection = db.petStat
+    collection.insert_one(latest)
+
+
 
     # if json['data'] == 37:
     #     return jsonify({ 'x' : 56, 'y' : [-200, 55], 'thirty_seven': 'YES'  })
