@@ -213,7 +213,14 @@
 
 
             function submitPlayed(){
-                $.post( "/played", { updating: "played", amount: "10" } );
+                let request = $.post( "/played", { updating: "played", amount: "10" } );
+                request.done(function(msg){
+                    console.log(msg);
+                });
+                request.fail(function(msg){
+                    console.log("fail");
+                    console.log(msg);
+                })
             }
 
             function retriveInstructions(){
