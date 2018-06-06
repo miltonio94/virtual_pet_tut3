@@ -24,7 +24,7 @@
 # if (not config.ON_HEROKU) and __name__ == "__main__":
 #     app.run(debug=True)
 from flask import Flask, request, render_template, jsonify, send_from_directory
-from pymongo import MongoClient
+from pymongo import MongoClient, ASCENDING
 import datetime
 import os
 
@@ -50,7 +50,7 @@ def send_js(path):
 
 @app.route('/played', methods=['POST'])
 def played():
-    latest = db.petStat.find().sort({"date":pymongo.ASCENDING})
+    latest = db.petStat.find().sort({"date": ASCENDING})
     latest = latest[0]
     if(latest.played < 100):
         latest.played = latest.played + 10
