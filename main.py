@@ -61,7 +61,7 @@ def page():
     return render_template('index.html', data=db.my_posts.find())
 
 @app.route("/play")
-def page():
+def play():
     return render_template('play.html', data=db.my_posts.find())
 
 if (not ON_HEROKU) and __name__ == "__main__":
