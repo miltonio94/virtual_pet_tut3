@@ -44,6 +44,11 @@ ON_HEROKU = "ON_HEROKU" in os.environ
 
 app = Flask(__name__)
 
+def getLatest():
+    latest = db.petStat.find().sort("date", ASCENDING)
+    latest = latest[0]
+    return latest
+
 @app.route('/js/<path:path>')
 def send_js(path):
     return send_from_directory('js', path)
@@ -52,7 +57,6 @@ def send_js(path):
 def played():
     latest = db.petStat.find().sort("date", ASCENDING)
     latest = latest[0]
-    print(latest)
     newEntry = {
         "name" : latest["name"],
         "played": latest["played"] + 10,
@@ -71,17 +75,42 @@ def played():
 
 @app.route('/pated', methods=['POST'])
 def pated():
-    pass
+    latest = db.petStat.find().sort("date", ASCENDING)
+    latest = latest[0]
+    newEntry = {
+        "name" : latest["name"],
+        "played": latest["played"],
+        "fullness": latest["fullness"],
+        "cuddled": latest["cuddled"] + 5,
+        "date" : datetime.datetime.utcnow()
+    }
+    if(newEntry["cuddled"] > 100):
+        newEntry["cuddled"] = 100
+
+    collection = db.petStat
+    collection.insert_one(newEntry)
+
+    return jsonify({"ok": 1})
 
 
 @app.route('/fed', methods=['POST'])
 def fed():
-    pass
+    latest = db.petStat.find().sort("date", ASCENDING)
+    latest = latest[0]
+    newEntry = {
+        "name" : latest["name"],
+        "played": latest["played"],
+        "fullness": latest["fullness"] + 5,
+        "cuddled": latest["cuddled"],
+        "date" : datetime.datetime.utcnow()
+    }
+    if(newEntry["fullness"] > 100):
+        newEntry["fullness"] = 100
 
-    # if json['data'] == 37:
-    #     return jsonify({ 'x' : 56, 'y' : [-200, 55], 'thirty_seven': 'YES'  })
-    # else:
-    #     return jsonify({ 'x' : 56, 'y' : [-200, 55], 'z' : json['data']  })
+    collection = db.petStat
+    collection.insert_one(newEntry)
+
+    return jsonify({"ok": 1})
 
 @app.route("/")
 def page():
@@ -90,6 +119,18 @@ def page():
 @app.route("/play")
 def play():
     return render_template('play.html', data=db.my_posts.find())
+
+@app.route("/feed")
+def feed():
+    return render_template('feed.html', data=db.my_posts.find())
+
+@app.route("/pat")
+def pat():
+    return render_template('pat.html', data=db.my_posts.find())
+
+@app.route("/stats")
+def stats():
+    return render_template('stats.html', data=getLatest())
 
 
 

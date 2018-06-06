@@ -223,6 +223,7 @@
                 request.fail(function(msg){
                     console.log("fail");
                     console.log(msg);
+
                 })
             }
 
@@ -243,8 +244,9 @@
                 if (flippy.instructionIndex == instructions.length) {
                     animating = false;
                     flippy.onMyWaySomewhere = false;
-                    instructions = [];
                     submitPlayed();
+                    instructions = [];
+
                 }
                 if(instructions.length > 0){
                     console.log(instructions);
