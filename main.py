@@ -50,7 +50,7 @@ def send_js(path):
 
 @app.route('/played', methods=['POST'])
 def played():
-    latest = db.petStat.find().sort({_id:-1})
+    latest = db.petStat.find().sort({"date":pymongo.ASCENDING})
     if(latest.played < 100):
         latest.played = latest.played + 10
     if(latest.played > 100):
