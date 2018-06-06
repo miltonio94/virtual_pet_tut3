@@ -50,7 +50,7 @@ def send_js(path):
 
 @app.route('/played', methods=['POST'])
 def played():
-    json = request.get_json()
+    json = request.get_json(force=True)
     print("lol")
     print(json)
 
