@@ -1,4 +1,3 @@
-# In mongo:
 # use mytable
 # db.createUser({user:"test", pwd:"test", roles:["readWrite"]})
 

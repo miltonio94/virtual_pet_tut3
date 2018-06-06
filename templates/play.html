@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous" />
+        <title>Lets play with flippy</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p>Flippy is small and frail, he only has enough energy to follow 10 instructions</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <form class="flippyInstructions" action="index.html" method="post">
+                        <select class="" name="">
+                            <option  selected value="_" class="default"> -- select an instruction -- </option>
+                            <option value="up">Move Up</option>
+                            <option value="down">Move Down</option>
+                            <option value="left">Move Left</option>
+                            <option value="right">Move Right</option>
+                        </select> <br/>
+                        <select class="" name="">
+                            <option  selected value="_" class="default"> -- select an instruction -- </option>
+                            <option value="up">Move Up</option>
+                            <option value="down">Move Down</option>
+                            <option value="left">Move Left</option>
+                            <option value="right">Move Right</option>
+                        </select> <br/>
+                        <select class="" name="">
+                            <option  selected value="_" class="default"> -- select an instruction -- </option>
+                            <option value="up">Move Up</option>
+                            <option value="down">Move Down</option>
+                            <option value="left">Move Left</option>
+                            <option value="right">Move Right</option>
+                        </select> <br/>
+                        <select class="" name="">
+                            <option  selected value="_" class="default"> -- select an instruction -- </option>
+                            <option value="up">Move Up</option>
+                            <option value="down">Move Down</option>
+                            <option value="left">Move Left</option>
+                            <option value="right">Move Right</option>
+                        </select> <br/>
+                        <select class="" name="">
+                            <option  selected value="_" class="default"> -- select an instruction -- </option>
+                            <option value="up">Move Up</option>
+                            <option value="down">Move Down</option>
+                            <option value="left">Move Left</option>
+                            <option value="right">Move Right</option>
+                        </select> <br/>
+                        <select class="" name="">
+                            <option  selected value="_" class="default"> -- select an instruction -- </option>
+                            <option value="up">Move Up</option>
+                            <option value="down">Move Down</option>
+                            <option value="left">Move Left</option>
+                            <option value="right">Move Right</option>
+                        </select> <br/>
+                        <select class="" name="">
+                            <option  selected value="_" class="default"> -- select an instruction -- </option>
+                            <option value="up">Move Up</option>
+                            <option value="down">Move Down</option>
+                            <option value="left">Move Left</option>
+                            <option value="right">Move Right</option>
+                        </select> <br/>
+                        <select class="" name="">
+                            <option  selected value="_" class="default"> -- select an instruction -- </option>
+                            <option value="up">Move Up</option>
+                            <option value="down">Move Down</option>
+                            <option value="left">Move Left</option>
+                            <option value="right">Move Right</option>
+                        </select> <br/>
+                        <select class="" name="">
+                            <option  selected value="_" class="default"> -- select an instruction -- </option>
+                            <option value="up">Move Up</option>
+                            <option value="down">Move Down</option>
+                            <option value="left">Move Left</option>
+                            <option value="right">Move Right</option>
+                        </select> <br/>
+                        <select class="" name="">
+                            <option  selected value="_" class="default"> -- select an instruction -- </option>
+                            <option value="up">Move Up</option>
+                            <option value="down">Move Down</option>
+                            <option value="left">Move Left</option>
+                            <option value="right">Move Right</option>
+                        </select> <br/>
+
+                        <a onclick="play()" href="#canvas">Action</a>
+                    </form>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <canvas id="canvas"  width="1080" height="920" style="background: #F1F1EE" ></canvas>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            var canvas = document.getElementById('canvas'),
+                context = canvas.getContext("2d"),
+                canvasH = canvas.height,
+                canvasW = canvas.width,
+                selects,
+                animating = false,
+                instructions = [];
+
+            var flippy = new Flippy();
+
+            function Flippy(){
+                this.x = canvasW / 2;
+                this.y = canvasH / 2;
+                this.radius = 20;
+                this.startingX = canvasW / 2;
+                this.startingY = canvasH / 2;
+                this.destinationX = canvasW / 2;
+                this.destinationY = canvasH / 2;
+                this.velocity = 1
+                this.onMyWaySomewhere = false;
+                this.instructionIndex = 0;
+                this.previousInstructionIndex = 0;
+                this.innerColor = "#247247";
+                this.middleColor = "#328328";
+                this.outterColor = "#208208";
+                this.strokeStyle = "#439E77";
+            };
+            Flippy.prototype.draw = function () {
+                gradient = context.createRadialGradient(flippy.x, flippy.y, 0,
+                    flippy.x, flippy.y, flippy.radius);
+                gradient.addColorStop(.3, flippy.innerColor);
+                gradient.addColorStop(.5, flippy.middleColor);
+                gradient.addColorStop(1, flippy.outterColor);
+
+                context.save();
+                context.beginPath();
+                context.arc(flippy.x, flippy.y, flippy.radius, 0, Math.PI * 2, false);
+                context.fillStyle = gradient;
+                context.strokeStyle = flippy.strokeStyle;
+                context.fill();
+                context.stroke();
+                context.restore();
+            };
+            Flippy.prototype.update = function (direction) {
+                if(direction != null){
+                    if(this.startingX == this.destinationX && this.y == this.startingY && this.onMyWaySomewhere){
+                        if(direction == "up"){
+                            this.destinationY = this.y - 50;
+                        } else if(direction == "down"){
+                            this.destinationY = this.y + 50;
+                        }else if(direction == "left"){
+                            this.destinationX = this.x - 50;
+                        }else if(direction == "right"){
+                            this.destinationX = this.x + 50;
+                        }
+                    }
+                    if (this.destinationX != this.startingX || this.destinationY != this.startingY) {
+                        if(direction == "up"){
+                            this.y = this.y - this.velocity;
+                        } else if(direction == "down"){
+                            this.y = this.y + this.velocity;
+                        }else if(direction == "left"){
+                            this.x = this.x - this.velocity;
+                        }else if(direction == "right"){
+                            this.x = this.x + this.velocity;
+                        }
+                    }
+                    if (this.destinationX == this.x && this.destinationY == this.y && this.onMyWaySomewhere){
+                        this.instructionIndex++;
+                        this.startingX = this.destinationX;
+                        this.startingY = this.destinationY;
+                    }
+                }
+                console.log(direction);
+                console.log(this.x);
+                console.log(this.destinationX);
+                console.log(this.y);
+                console.log(this.destinationY);
+            };
+
+            function play(){
+                retriveInstructions();
+                parseInstructions();
+                resetFlippy();
+                animating = true;
+                flippy.onMyWaySomewhere = true;
+                window.requestAnimationFrame(animate);
+                resetSelections();
+            }
+
+            function resetSelections(){
+                options = $(".default");
+                for(let i = 0; i < options.length; i++){
+                    options[i].selected = true;
+                }
+            }
+
+            function resetFlippy(){
+                flippy.x = canvasW / 2;
+                flippy.y = canvasH / 2;
+                flippy.lastX = canvasW / 2;
+                flippy.lastY = canvasH / 2;
+                flippy.destinationX = canvasW / 2;
+                flippy.destinationY = canvasH / 2;
+                flippy.onMyWaySomewhere = false;
+                flippy.instructionIndex = 0;
+            }
+
+
+
+
+            function submitHappiness(){
+
+            }
+
+            function retriveInstructions(){
+                selects  = $("select option:selected");
+            }
+
+            function parseInstructions(){
+                for(let i = 0, y = 0; i < selects.length; i++){
+                    if(selects[i].value !== "_"){
+                        instructions[y] = selects[i].value;
+                        y++;
+                    }
+                }
+            }
+
+            function update(){
+                if (flippy.instructionIndex == instructions.length) {
+                    animating = false;
+                    flippy.onMyWaySomewhere = false;
+                    instructions = [];
+                }
+                if(instructions.length > 0){
+                    console.log(instructions);
+                    flippy.update(instructions[flippy.instructionIndex]);
+                }
+            }
+            function draw(){
+                context.clearRect(0, 0,canvasW, canvasH);
+                flippy.draw();
+            }
+
+            function animate(time){
+                update();
+                draw();
+                if(animating){
+                    window.requestAnimationFrame(animate);
+                }
+
+            }
+            animate();
+        </script>
+    </body>
+
+</html>
