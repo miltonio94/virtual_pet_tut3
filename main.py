@@ -112,6 +112,22 @@ def fed():
 
     return jsonify({"ok": 1})
 
+@app.route('/remove', methods=['POST'])
+def remove():
+    latest = getLatest()
+    newEntry = {
+        "name" : latest["name"],
+        "played": latest["played"] - 15,
+        "fullness": latest["fullness"] - 10,
+        "cuddled": latest["cuddled"] - 5,
+        "date" : datetime.datetime.utcnow()
+    }
+
+    collection = db.petStat
+    collection.insert_one(newEntry)
+
+    return jsonify({"ok": 1})
+
 @app.route('/latest', methods=['POST'])
 def latest():
     lat = getLatest()
