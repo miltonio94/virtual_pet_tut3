@@ -213,7 +213,13 @@
 
 
             function submitHappiness(){
+                $.ajax({
+                    type:"POST",
+                    url:"/played",
+                    data:{add : 10},
+                    dataType:"json"
 
+                })
             }
 
             function retriveInstructions(){

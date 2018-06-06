@@ -48,13 +48,16 @@ app = Flask(__name__)
 def send_js(path):
     return send_from_directory('js', path)
 
-@app.route('/exchange', methods=['POST'])
+@app.route('/played', methods=['POST'])
 def exchange():
     json = request.get_json()
-    if json['data'] == 37:
-        return jsonify({ 'x' : 56, 'y' : [-200, 55], 'thirty_seven': 'YES'  })
-    else:
-        return jsonify({ 'x' : 56, 'y' : [-200, 55], 'z' : json['data']  })
+    print("lol")
+    print(json)
+
+    # if json['data'] == 37:
+    #     return jsonify({ 'x' : 56, 'y' : [-200, 55], 'thirty_seven': 'YES'  })
+    # else:
+    #     return jsonify({ 'x' : 56, 'y' : [-200, 55], 'z' : json['data']  })
 
 @app.route("/")
 def page():
