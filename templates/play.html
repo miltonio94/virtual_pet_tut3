@@ -212,13 +212,12 @@
 
 
 
-            function submitHappiness(){
+            function submitPlayed(){
                 $.ajax({
                     type:"POST",
                     url:"/played",
                     data:{add : 10},
                     dataType:"json"
-
                 })
             }
 
@@ -240,6 +239,7 @@
                     animating = false;
                     flippy.onMyWaySomewhere = false;
                     instructions = [];
+                    submitPlayed();
                 }
                 if(instructions.length > 0){
                     console.log(instructions);
