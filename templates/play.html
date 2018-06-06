@@ -213,12 +213,7 @@
 
 
             function submitPlayed(){
-                $.ajax({
-                    type:"POST",
-                    url:"/played",
-                    data:{add : 10},
-                    dataType:"json"
-                })
+                $.post( "/played", { updating: "played", amount: "10" } );
             }
 
             function retriveInstructions(){
